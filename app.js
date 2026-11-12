@@ -99,7 +99,7 @@
   function render() {
     const t = T[lang];
     document.documentElement.lang = lang;
-    document.title = NAME[lang] + " — " + t.hero_eyebrow.split(" · ").slice(0, 2).join(" & ");
+    document.title = NAME[lang] + " — " + t.hero_eyebrow.split(" · ").slice(0, 3).join(", ");
     document.querySelectorAll("[data-t]").forEach(el => { el.textContent = t[el.dataset.t]; });
     document.querySelectorAll("[data-name]").forEach(el => { el.textContent = NAME[lang]; });
     document.querySelectorAll("[data-alt]").forEach(el => {
@@ -145,12 +145,21 @@
       p.textContent = t.contact_soon;
       links.append(p);
     }
+    // Видимый адрес и ник, а не пустые плашки: их можно скопировать, даже если ссылка не открылась
     items.forEach(([label, href]) => {
+      const row = document.createElement("p");
+      row.className = "contact-row";
+      const k = document.createElement("span");
+      k.className = "contact-label";
+      k.textContent = label;
       const a = document.createElement("a");
       a.href = href;
-      a.textContent = label;
+      a.textContent = href.startsWith("mailto:")
+        ? href.slice(7)
+        : "@" + href.replace(/\/+$/, "").split("/").pop();
       if (!href.startsWith("mailto:")) { a.target = "_blank"; a.rel = "noopener"; }
-      links.append(a);
+      row.append(k, a);
+      links.append(row);
     });
 
     if (!lb.hidden) show();
@@ -198,6 +207,25 @@
     x0 = null;
   });
 
+  // Каждый пункт меню открывает свой раздел вместо прокрутки длинной страницы.
+  // Адрес вида #about можно отправить ссылкой, кнопка «назад» в браузере работает.
+  const pages = [...document.querySelectorAll("[data-page]")];
+  const navLinks = [...document.querySelectorAll(".nav a")];
+  function route() {
+    const h = location.hash.slice(1);
+    const page = ["about", "exhibitions", "contact"].includes(h) ? h : "gallery";
+    pages.forEach(s => { s.hidden = s.dataset.page !== page; });
+    navLinks.forEach(a => {
+      if (a.getAttribute("href") === "#" + page) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
+    });
+    const target = h === "gallery" ? document.getElementById("gallery") : null;
+    const y = target ? target.getBoundingClientRect().top + window.scrollY - document.querySelector(".top").offsetHeight : 0;
+    window.scrollTo({ top: Math.max(0, y), behavior: "instant" });
+  }
+  window.addEventListener("hashchange", route);
+
   applyFilter();
   render();
+  route();
 })();

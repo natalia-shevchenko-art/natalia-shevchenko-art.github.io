@@ -3,21 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Natalia Shevchenko — Watercolour & Pastel</title>
-<meta name="description" content="Original watercolour and pastel paintings by Ukrainian realist artist Natalia Shevchenko: flowers, still life, animals and nature.">
-<meta property="og:title" content="Natalia Shevchenko — Watercolour & Pastel">
-<meta property="og:description" content="Original watercolour and pastel paintings: flowers, still life, animals and nature.">
+<title>Natalia Shevchenko — Watercolour, Pastel, Coloured pencil</title>
+<meta name="description" content="Original watercolour, pastel and coloured pencil paintings by Ukrainian realist artist Natalia Shevchenko: flowers, still life, animals and nature.">
+<meta property="og:title" content="Natalia Shevchenko — Watercolour, Pastel, Coloured pencil">
+<meta property="og:description" content="Original watercolour, pastel and coloured pencil paintings: flowers, still life, animals and nature.">
 <meta property="og:image" content="https://natalia-shevchenko-art.github.io/img/works/03_roses-bouquet.jpg">
 <meta property="og:url" content="https://natalia-shevchenko-art.github.io/">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 <header class="top">
-  <a class="brand" href="#top" data-name></a>
+  <a class="brand" href="#home" data-name></a>
   <nav class="nav">
     <a href="#gallery" data-t="nav_gallery"></a>
     <a href="#about" data-t="nav_about"></a>
@@ -28,7 +28,7 @@
 </header>
 
 <main id="top">
-  <section class="hero">
+  <section class="hero" data-page="gallery">
     <div class="hero-text">
       <p class="eyebrow" data-t="hero_eyebrow"></p>
       <h1 data-name></h1>
@@ -40,13 +40,24 @@
     </figure>
   </section>
 
-  <section id="gallery" class="section">
+  <section id="gallery" class="section" data-page="gallery">
     <h2 data-t="gallery_title"></h2>
     <div class="filters" role="group"></div>
     <div class="grid"></div>
+    <aside class="teaser">
+      <img src="img/about/artist-portrait.jpg" width="1100" height="1259" alt="" data-alt="alt_portrait" loading="lazy">
+      <div>
+        <p class="teaser-name" data-name></p>
+        <p data-t="teaser_text"></p>
+        <div class="teaser-links">
+          <a class="btn" href="#about" data-t="teaser_about"></a>
+          <a class="btn btn-dark" href="#contact" data-t="teaser_contact"></a>
+        </div>
+      </div>
+    </aside>
   </section>
 
-  <section id="about" class="section about">
+  <section id="about" class="section about" data-page="about">
     <figure class="about-img">
       <img src="img/about/artist-portrait.jpg" width="1100" height="1259" alt="" data-alt="alt_portrait" loading="lazy">
     </figure>
@@ -64,7 +75,7 @@
     </div>
   </section>
 
-  <section id="exhibitions" class="section">
+  <section id="exhibitions" class="section" data-page="exhibitions">
     <h2 data-t="ex_title"></h2>
     <ol class="timeline"></ol>
     <div class="ex-photos">
@@ -82,7 +93,7 @@
     </div>
   </section>
 
-  <section id="contact" class="section contact">
+  <section id="contact" class="section contact" data-page="contact">
     <h2 data-t="contact_title"></h2>
     <p data-t="contact_text"></p>
     <div class="contact-links"></div>
@@ -101,7 +112,7 @@
   <button class="lb-next" aria-label="Next">&#8250;</button>
 </div>
 
-<script src="data.js"></script>
-<script src="app.js"></script>
+<script src="data.js?v=3"></script>
+<script src="app.js?v=3"></script>
 </body>
 </html>
