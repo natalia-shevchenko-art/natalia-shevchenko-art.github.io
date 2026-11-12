@@ -102,10 +102,14 @@ main { min-height: calc(100vh - 160px); }
 .contact { text-align: center; border-top: 1px solid var(--line); }
 .contact p { max-width: 36em; margin: 0 auto 1.6em; color: var(--muted); }
 .contact-links { display: flex; flex-direction: column; align-items: center; gap: 18px; }
-.contact .contact-row { margin: 0; display: flex; flex-direction: column; gap: 2px; color: var(--ink); }
+.contact-links { gap: 36px; }
+.contact-row { display: flex; flex-direction: column; align-items: center; gap: 4px; }
 .contact-label { font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-.contact-row a { font-family: var(--serif); font-size: 1.6rem; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; word-break: break-word; }
-.contact-row a:hover { color: var(--accent); }
+.contact-value { font-family: var(--serif); font-size: 1.6rem; color: var(--ink); user-select: all; -webkit-user-select: all; word-break: break-word; }
+.contact-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.contact-btns .btn { margin-top: .5em; padding: 10px 22px; background: none; font: inherit; font-size: .9rem; cursor: pointer; color: var(--ink); }
+.contact-btns .btn-dark { background: var(--ink); color: var(--paper); }
+.contact-btns .btn:hover { background: var(--ink); color: var(--paper); }
 
 .foot { padding: 32px 16px; text-align: center; font-size: .85rem; color: var(--muted); border-top: 1px solid var(--line); }
 
@@ -146,6 +150,7 @@ main { min-height: calc(100vh - 160px); }
   .teaser { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 16px; padding: 28px 20px; margin-top: 36px; }
   .teaser img { width: 120px; }
   .teaser-links { justify-content: center; }
+  .contact-value { font-size: 1.22rem; }
   .docs figcaption { font-size: .8rem; }
   .timeline li { grid-template-columns: 56px 1fr; }
   .lb-prev, .lb-next { top: auto; bottom: 8px; transform: none; }

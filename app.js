@@ -145,24 +145,54 @@
       p.textContent = t.contact_soon;
       links.append(p);
     }
-    // Видимый адрес и ник, а не пустые плашки: их можно скопировать, даже если ссылка не открылась
+    // Адрес виден целиком и выделяется для копирования; рядом кнопки «Открыть» и «Скопировать»
     items.forEach(([label, href]) => {
-      const row = document.createElement("p");
+      const mail = href.startsWith("mailto:");
+      const shown = mail ? href.slice(7) : href.replace(/^https?:\/\/(www\.)?/, "").replace(/\/+$/, "");
+      const row = document.createElement("div");
       row.className = "contact-row";
       const k = document.createElement("span");
       k.className = "contact-label";
       k.textContent = label;
+      const v = document.createElement("span");
+      v.className = "contact-value";
+      v.textContent = shown;
+      const btns = document.createElement("div");
+      btns.className = "contact-btns";
       const a = document.createElement("a");
+      a.className = "btn btn-dark";
       a.href = href;
-      a.textContent = href.startsWith("mailto:")
-        ? href.slice(7)
-        : "@" + href.replace(/\/+$/, "").split("/").pop();
-      if (!href.startsWith("mailto:")) { a.target = "_blank"; a.rel = "noopener"; }
-      row.append(k, a);
+      a.textContent = mail ? t.c_email : t.c_instagram;
+      if (!mail) { a.target = "_blank"; a.rel = "noopener"; }
+      const cp = document.createElement("button");
+      cp.type = "button";
+      cp.className = "btn";
+      cp.textContent = t.c_copy;
+      cp.addEventListener("click", () => {
+        const done = () => { cp.textContent = T[lang].c_copied; setTimeout(() => { cp.textContent = T[lang].c_copy; }, 1800); };
+        const text = mail ? shown : href;
+        const fallback = () => {
+          selectText(v);
+          try { if (document.execCommand("copy")) done(); } catch (e) {}
+        };
+        if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, fallback);
+        else fallback();
+      });
+      btns.append(a, cp);
+      row.append(k, v, btns);
       links.append(row);
     });
 
     if (!lb.hidden) show();
+  }
+
+  // Если буфер обмена недоступен, выделяем текст, чтобы его можно было скопировать вручную
+  function selectText(el) {
+    const r = document.createRange();
+    r.selectNodeContents(el);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(r);
   }
 
   function show() {
